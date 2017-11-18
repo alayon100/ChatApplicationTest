@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 returnToStartActivity();
                 return true;
             case R.id.itemSettings:
+                //IR AL ACTIVITY DE LOS SETTINGS
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(i);
                 return true;

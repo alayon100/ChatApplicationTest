@@ -85,6 +85,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     }
 
+
     private void registerUserOnDataBase(final String userName, String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
