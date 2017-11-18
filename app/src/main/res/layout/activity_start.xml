@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.itver.alayon.chatapplicationtest.activitys.StartActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="71dp"
+        android:text="Welcome to the \nChat application"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
+
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonRegister"
+        android:layout_alignStart="@+id/buttonRegister"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:elevation="5dp"
+        android:text="I have an Account" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="83dp"
+        android:textColor="@color/colorPrimary"
+        android:background="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:elevation="5dp"
+        android:text="Create a new Account" />
+
+
+</RelativeLayout>
