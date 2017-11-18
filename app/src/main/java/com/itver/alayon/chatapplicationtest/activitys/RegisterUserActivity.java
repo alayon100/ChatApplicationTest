@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.itver.alayon.chatapplicationtest.R;
 
+import java.util.HashMap;
+
 public class RegisterUserActivity extends AppCompatActivity implements View.OnClickListener{
 
     //FIREBASE
@@ -49,16 +51,19 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private void initComponents(){
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
         textUserName = (TextInputLayout) findViewById(R.id.inputLayoutUserName);
         textEmail = (TextInputLayout) findViewById(R.id.inputLayoutEmail);
         textPassword = (TextInputLayout) findViewById(R.id.inputLayoutPassword);
         buttonRegister = (Button) findViewById(R.id.buttonCreateUser);
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         progressDialog = new ProgressDialog(this);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Create Account");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         buttonRegister.setOnClickListener(this);
+
     }
 
     @Override
@@ -80,25 +85,40 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    private void registerUserOnDataBase(String userName, String email, String password){
+    private void registerUserOnDataBase(final String userName, String email, String password){
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()){
 
                     //Recuperar el id del nuevo usuario y registrarlo en la  realTimeDatabase
-                    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                    FirebaseUser currentUser = mAuth.getCurrentUser();
                     String uid = currentUser.getUid();
                     //recuperar la referencia de la bd en donde se escribira al nuevo usuario
-                    reference = database.getReference("usuarios");
+                    reference = database.getReference().child("usuarios").child(uid);
 
-                    progressDialog.dismiss();
-                    //Regresamos al main activity
-                    Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
-                    finish();
-                }else{
+                    HashMap<String, String> user = new HashMap<>();
+                    user.put("user_name", userName);
+                    user.put("status", "Conectado");
+                    user.put("profile_image", "default");
+                    user.put("thumb_image", "default");
+
+                    reference.setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                progressDialog.dismiss();
+                                //Regresamos al main activity
+                                Intent intent = new Intent(RegisterUserActivity.this, MainActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                                finish();
+                            }
+                        }
+                    });
+
+                 }else{
                     progressDialog.hide();
                     Toast.makeText(RegisterUserActivity.this, "Have some Error in the fields", Toast.LENGTH_LONG).show();
                 }

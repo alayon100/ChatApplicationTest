@@ -91,11 +91,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
     private void returnToStartActivity(){
         Intent intent = new Intent(MainActivity.this, StartActivity.class);
         startActivity(intent);
@@ -117,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.itemLogout:
                 FirebaseAuth.getInstance().signOut();
                 returnToStartActivity();
+                return true;
+            case R.id.itemSettings:
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
