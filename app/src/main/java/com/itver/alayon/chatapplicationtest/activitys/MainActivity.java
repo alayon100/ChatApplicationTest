@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.itemLogout:
+                //CERRAR SESION
                 FirebaseAuth.getInstance().signOut();
                 returnToStartActivity();
                 return true;
@@ -118,9 +119,13 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(i);
                 return true;
+            case R.id.itemAllUsers:
+                //IR AL ACTIVITY DE LA LISTA DE USUARIOS
+                i = new Intent(MainActivity.this, UsersActivity.class);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
-
         }
 
     }
