@@ -9,6 +9,7 @@
     tools:context=".activitys.SettingsActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_alignParentTop="true"
